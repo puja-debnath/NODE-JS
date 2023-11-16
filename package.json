@@ -1,0 +1,27 @@
+{
+  "name": "node-js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node puja",
+    "dev": "nodemon puja"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/puja-debnath/NODE-JS.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/puja-debnath/NODE-JS/issues"
+  },
+  "homepage": "https://github.com/puja-debnath/NODE-JS#readme",
+  "dependencies": {
+    "date-fns": "^2.30.0",
+    "node": "^21.1.0",
+    "nodemon": "^3.0.1",
+    "uuid": "^9.0.1"
+  }
+}
