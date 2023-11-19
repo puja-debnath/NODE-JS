@@ -17,6 +17,5 @@ const logEvents = async (message) =>{
         console.log(err)
     }
 }
-logEvents()
 module.exports = logEvents
 

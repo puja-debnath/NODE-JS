@@ -10,5 +10,5 @@ const  myemitter = new MyEmitter()
 myemitter.on("log",(msg) => {logEvents(msg)})
 
 setTimeout(() => {
-    myemitter.emit('log',"log eventt emitted") 
+    myemitter.emit('log',"log event emitted") 
 }, 1000);
