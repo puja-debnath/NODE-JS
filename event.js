@@ -1,10 +1,10 @@
 const logEvents = require("./puja")
 
-const EventEmitter = require("events")
+const EventEmitter = require("events")  // EventEmitter  is class
 class MyEmitter extends EventEmitter{}
 
 //initialize object
-const  myemitter = new MyEmitter()
+const  myemitter = new MyEmitter()      // myemitter  is  object
 
 //add lister fo rthe log event
 myemitter.on("log",(msg) => {logEvents(msg)})
