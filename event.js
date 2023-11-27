@@ -1,4 +1,4 @@
-const logEvents = require("./puja")
+const logEvents = require("./logEvents")
 
 const EventEmitter = require("events")  // EventEmitter  is class
 class MyEmitter extends EventEmitter{}
