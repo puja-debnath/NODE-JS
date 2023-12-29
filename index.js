@@ -14,10 +14,8 @@ const path = require("path")
 //             console.log("rename complete")
 //         })
 //     })
-
 // })
-
-   // to get rid of this callbback hell type of syntax use promises
+// to get rid of this callbback hell type of syntax use promises
 
 const fileOps = async () =>{
     try{

@@ -21,8 +21,8 @@ const server = http.createServer((req,res) =>{
         })
         break;
     }
-
 })
+
 
 server.listen(PORT, () =>{
     console.log(`server runnning on ${PORT}`)
