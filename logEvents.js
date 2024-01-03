@@ -5,7 +5,7 @@ const path = require("path")
 
 const {format} = require("date-fns")
 const logEvents = async (message) =>{
-    const datetime = `${ format(new Date(), "yyyyMMdd/HH:mm:ss")}`
+    const datetime = `${ format(new Date(), "yyyyMMdd\tHH:mm:ss")}`
     const logdata = `${datetime}\t${uuid()}\t${message}\n`
     console.log(logdata + "---------")
     try{
@@ -17,6 +17,8 @@ const logEvents = async (message) =>{
         console.log(err)
     }
 }
+
+
 module.exports = logEvents
 
 
