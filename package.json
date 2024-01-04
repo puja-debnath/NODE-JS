@@ -1,12 +1,12 @@
 {
   "name": "node-js",
   "version": "1.0.0",
-  "description": "",
+  "description": "Nodejs depth in detail",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server",
-    "dev": "nodemon server"
+    "start": "node newServer",
+    "dev": "nodemon newServer"
   },
   "repository": {
     "type": "git",
