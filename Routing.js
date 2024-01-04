@@ -2,9 +2,41 @@ const express = require("express")
 const app = express()
 const path = require('path')
 const PORT = process.env.PORT || 3000
+const cors = require("cors")
+const {logger} = require("./middleware/logEvents")
 
-  // it will either take only / or can take html now html is optional
- app.get("^/$|/index(.html)?" , (req,res) =>{
+//built-in middleware to handle urlencoded data
+// in other words to ,form-data
+//content-Type:application/x-www-form-urlencoded
+app.use(express.urlencoded({extended:false}))
+ 
+// built-inmiddleware for json
+app.use(express.json())
+
+//serve static file
+app.use(express.static(path.join(__dirname,"/public")))
+
+
+                  //custom middleware logger
+app.use(logger)
+ //live server always run on http you default computer setting[2]
+const whiteList = ['https://www.google.com','http://127.0.0.1:5500','http://localhost:3000']
+const corsOptions = {
+   origin:(origin,callback) =>{
+      if(whiteList.indexOf(origin) !== -1 || !origin){
+         callback(null,true)
+      }else{
+         callback(new Error("Not allowed By CORS"))
+      }
+   },
+   optionsSuccessStatus:200
+}
+
+app.use(cors(corsOptions))
+
+
+// it will either take only / or can take html now html is optional
+app.get("^/$|/index(.html)?" , (req,res) =>{
    // res.sendFile("./views/index.html",{root: __dirname})
     res.sendFile(path.join(__dirname,"views","index.html"))
  })

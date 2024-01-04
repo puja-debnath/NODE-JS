@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node newServer",
-    "dev": "nodemon newServer"
+    "start": "node Routing",
+    "dev": "nodemon Routing"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/puja-debnath/NODE-JS#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "date-fns": "^2.30.0",
     "express": "^4.18.2",
     "node": "^21.1.0",
