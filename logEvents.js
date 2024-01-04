@@ -4,7 +4,7 @@ const {v4:uuid} = require("uuid")
 const path = require("path")
 
 const {format} = require("date-fns")
-const logEvents = async (message) =>{
+const logEvents = async (message , logName) =>{
     const datetime = `${ format(new Date(), "yyyyMMdd\tHH:mm:ss")}`
     const logdata = `${datetime}\t${uuid()}\t${message}\n`
     console.log(logdata + "---------")
@@ -12,7 +12,7 @@ const logEvents = async (message) =>{
         if(!ms.existsSync(path.join(__dirname,"logs"))){
              await fs.mkdir(path.join(__dirname,"logs"))
         }
-        await fs.appendFile(path.join(__dirname,"logs","logEvent.txt"), logdata)
+        await fs.appendFile(path.join(__dirname,"logs",logName), logdata)
     }catch(err){
         console.log(err)
     }

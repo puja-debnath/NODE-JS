@@ -3,15 +3,40 @@ const path = require("path")
 const fs = require("fs")
 const fsPromises = require("fs").promises
 const PORT = process.env.PORT || 3500
-
 const logEvents = require("./logEvents")
 const EventEmitter = require("events")
+const { response } = require("express")
 class Emitter extends EventEmitter{}
 const myEmitter = new Emitter()
 
+myEmitter.on('log', (msg, fileName) =>{logEvents(msg, fileName)})
+
+const serveFile = async(filepath,contentType, response ) =>{
+  try{
+   const rawdata = await fsPromises.readFile(
+    filepath,
+     !contentType.includes("image") ? "utf8" : ''
+     )
+   const data = contentType === 'application/json'
+   ? JSON.parse(rawdata) : rawdata
+   response.writeHead(
+     filepath.includes('404.html') ? 400 : 200, 
+    {'Content-Type': contentType})
+   response.end(contentType === 'application/json'?
+   JSON.stringify(data) : data
+     );
+  }catch(err){
+    console.log(err)
+    myEmitter.emit('log', `${err.name} \t ${err.message}` , 'errLog.txt')
+    response.statusCode = 500
+    response.end()
+  }
+}
+
+
 const server = http.createServer((req,res)=>{
     console.log(req.url , req.method)
-
+  myEmitter.emit('log', `${req.url} \t ${req.method}` , 'reqLog.txt')
     const extension = path.extname(req.url)
   let contentType;
     switch(extension){
@@ -50,14 +75,23 @@ const server = http.createServer((req,res)=>{
 
     const fileExist = fs.existsSync(filepath)
     if(fileExist){
-        //serve the file
+        serveFile(filepath,contentType, res)
     }else{
-        //404
-       // 301redirect
-       console.log(path.parse(filepath))
-    }
-    
-});
+      
+       switch(path.parse(filepath).base){
+        case "new_page.html":
+            res.writeHead(301,{"Location":"/new_page.html"})
+            res.end()
+            break;
+        case "www_page.html":
+                res.writeHead(301,{"Location":"/"})
+                res.end()
+                break;
+        default:
+            serveFile(path.join(__dirname, "views", "404.html"), "text/html" , res)
+       }
+   }
+    });
 
 server.listen(PORT, () =>{console.log(`server runnning on ${PORT}`)})
 
