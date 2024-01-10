@@ -35,12 +35,31 @@ function processData(data, callback) {
     // Calling the callback function with the processed data
     callback(processedData);
   }, 1000);
+  const dispatch = useDispatch();
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const products = useSelector(state => state.product.products)
+
+
+     useEffect(() =>{
+          dispatch(fetchAllProductsAsync)
+     },[dispatch])
+
 }
 
 // Callback function to handle the processed data
 function handleData(result) {
   console.log("Processed data:", result);
 }
+// A mock function to mimic making an async request for data
+export function fetchAllProducts() {
+  return new Promise(async(resolve) =>{
+    const response = await fetch("http://localhost:3000/products")
+    const data = await response.json()
+    resolve(data)
+  }
+  );
+}
+
 
 // Invoking processData and passing handleData as the callback
 processData('hello', handleData);
